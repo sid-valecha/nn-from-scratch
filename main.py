@@ -175,6 +175,13 @@ class NeuralNetwork:
     def accuracy(self, x: np.ndarray, y: np.ndarray) -> float:
         return np.mean(self.predict(x) == y)
 
+    def load_weights(self, npz_path: str):
+        """Load pre-trained weights from .npz file."""
+        weights = np.load(npz_path)
+        for i, layer in enumerate(self.layers):
+            layer.W = weights[f'layer{i}_W']
+            layer.b = weights[f'layer{i}_b']
+
 
 #training
 def main():
